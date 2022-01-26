@@ -18,6 +18,12 @@ This template does not include any kind of persistence (database). For more adva
 
 ## Usage
 
+### Invoke
+
+```
+$ serverless invoke local -f generate
+```
+
 ### Deployment
 
 ```
