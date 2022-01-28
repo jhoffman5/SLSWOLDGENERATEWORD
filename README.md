@@ -21,7 +21,7 @@ This template does not include any kind of persistence (database). For more adva
 ### Invoke
 
 ```
-$ serverless invoke local -f generate
+$ serverless invoke local -f generate -p params.json
 ```
 
 ### Deployment

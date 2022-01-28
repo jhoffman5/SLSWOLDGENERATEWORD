@@ -2,10 +2,14 @@
 const { GetObjectCommand, PutObjectCommand, S3Client } = require('@aws-sdk/client-s3')
 const client = new S3Client() // Pass in opts to S3 if necessary
 const bucket = "w3.hoffmanjoshua.net";
-const dictFile = "wordl/dictionaryTree.json"
+//const dictFile = "wordl/dictionaryTree.json"
 
 module.exports.generate = async (event) => {
   try{
+    var length = parseInt(event.pathParameters.length);
+
+    var dictFile = `wordl/guess${length}LetterWordsTree.json`
+
     const dictJSON = JSON.parse(await getObject(bucket, dictFile));
 
     var word = '';
@@ -31,7 +35,7 @@ module.exports.generate = async (event) => {
       }
     }
 
-    const response = await putObject(bucket, "wordl/wordoftheday.txt", word);
+    const response = await putObject(bucket, `wordl/${length}LetterWordOfTheDay.txt`, word);
 
     return {
       statusCode: 200,

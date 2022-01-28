@@ -11,5 +11,5 @@ functions:
     handler: handler.generate
     events:
       - httpApi:
-          path: /
+          path: /length/{length}
           method: get
