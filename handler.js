@@ -1,14 +1,19 @@
 "use strict";
 const { GetObjectCommand, PutObjectCommand, S3Client } = require('@aws-sdk/client-s3')
 const client = new S3Client() // Pass in opts to S3 if necessary
-const bucket = "w3.hoffmanjoshua.net";
+const bucket = "567dle";
 //const dictFile = "wordl/dictionaryTree.json"
 
 module.exports.generate = async (event) => {
   try{
     var length = parseInt(event.pathParameters.length);
 
-    var dictFile = `wordl/guess${length}LetterWordsTree.json`
+    //generate word for the next day
+    let yourDate = new Date();
+    yourDate.setDate(yourDate.getDate() + 1);
+    var date = yourDate.toISOString().split('T')[0];
+
+    var dictFile = `${length}/guessWordsTree.json`
 
     const dictJSON = JSON.parse(await getObject(bucket, dictFile));
 
@@ -35,7 +40,7 @@ module.exports.generate = async (event) => {
       }
     }
 
-    const response = await putObject(bucket, `wordl/${length}LetterWordOfTheDay.txt`, word);
+    const response = await putObject(bucket, `${length}/${date}/wordOfTheDay.txt`, word);
 
     return {
       statusCode: 200,
